@@ -17,7 +17,7 @@ const appendData=async(fname, contents)=>{
 
 const deleteFile=async(fname)=>{
   await unlink(fname);
-  console.log("${fname} deleted");
+  console.log(`${fname} deleted`);
 }
 
 
