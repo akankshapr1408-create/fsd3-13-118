@@ -16,5 +16,5 @@ const sayhi=(name)=>{
         console.log(`${name} logged out`);
     });
 
-    task.emit("greet","akanksha");//znnouncement
+    task.emit("greet","akanksha");//announcement
     task.emit("greet","sdfg");
