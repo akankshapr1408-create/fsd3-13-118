@@ -1,2 +1,0 @@
-I am fs module
-I am fs module and I am appending data
