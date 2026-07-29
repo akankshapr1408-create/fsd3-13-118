@@ -17,6 +17,7 @@ it direct connect with client OS rather than browser
 - Directory Management 
    - mkdir()
    - rmdir()
+   - rm()
    - readdir()
 - Metadata/Information
    - stat()
@@ -35,4 +36,4 @@ it direct connect with client OS rather than browser
    - unlink()
    - link()
    - syslink()
- )
+ 
