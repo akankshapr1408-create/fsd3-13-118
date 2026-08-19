@@ -1,60 +1,92 @@
+import readline from "readline/promises";
+import { writeFile, readFile } from "fs/promises";
 
-    // const sayhi=(name)=>{
-    // console.log(`Welcome to ${name}`)
-    // }
-    
-    // sayhi("shopping cart🙃")
+import { stdin, stdout } from "process";
 
-    import readline from 'readline/promises';
-    import {writeFile,readFile} from 'fs/promises';
-    import {stdin, stdout} from 'process';
-    
+const FILE = "products.json";
 
-    const FILE="products.json";
-    const savecart=async (cart)=>{
-        await writeFile(FILE,JSON.stringify(cart,null,2));
-      
+const saveCart = async (cart) => {
+  await writeFile(FILE, JSON.stringify(cart, null, 2));
+};
+
+const getCart = async () => {
+  const data = await readFile(FILE, "utf-8");
+  return JSON.parse(data);
+};
+
+const addToCart = async (item) => {
+  const products = await getCart();
+  const productFound = products.find((p) => p.id === item.id);
+  if (productFound) {
+    productFound.qty += item.qty;
+    console.log("Product in the cart updated");
+  } else {
+    products.push(item);
+    console.log("Product added successfully");
+  }
+
+//   products.push(item);
+  await saveCart(products);
+};
+const showCart = () => {
+  console.log("showcart:");
+};
+const updateCart = () => {
+  console.log(updateCart);
+};
+const deleteFromcart = () => {
+  console.log(deleteFromcart);
+};
+
+const main = async () => {
+  const cin = readline.createInterface({ input: stdin, output: stdout });
+  let choice;
+  do {
+    console.log("Welcome to shopping cart 🛍️");
+    console.log("1 ------- Add to cart");
+    console.log("2 ------- Show Cart");
+    console.log("3 ------- Remove Item");
+    console.log("4 ------- Update Quantity");
+    console.log("5 ------- Checkout");
+    choice = await cin.question("Enter your choice:");
+    switch (Number(choice)) {
+      case 1:
+        let data = await cin.question("enter id,name,price,qty:");
+        let p = data.split(",");
+        // console.table(p);
+        let q = p.map((item) => item.trim());
+        // console.table(q);
+        let [id, name, price, qty] = q;
+        console.log(id, name, price, qty);
+        const product = {
+          id: Number(id),
+          name,
+          price: Number(price),
+          qty: Number(qty),
+        };
+        // console.log(product);
+        await addToCart(product);
+
+        break;
+      case 2:
+        showCart();
+        break;
+      case 3:
+        deleteFromcart();
+        break;
+      case 4:
+        updateCart();
+        break;
+      case 5:
+        console.log("See you later...😃");
+        process.exit();
+        break;
+      default:
+        console.log("Invalid choice! try again 🛑");
     }
-    const getcart=async ()=>{
-        const data=await readFile(FILE,"utf-8");
-        return JSON.parse(data);
+  } while (choice != "5");
 
-    }
+  cin.close();
+};
 
-    const main=async ()=>{
-        const cin=readline.createInterface({input:stdin,output:stdout});
-        let choice;
-        do{
-        console.log("Welcome to shopping cart🙃");
-        console.log("1           Add item to cart");
-        console.log("2           Show item to cart");
-        console.log("3           Remove item from cart");
-        console.log("4           Update quantity");
-        console.log("5           Checkout") ; 
-        choice=await cin.question("Enter your choice: ");
-       
-        switch(Number(choice)){
-            case "1":
-                console.log("Add item to cart");
-                break;
-            case "2":
-                console.log("Show item to cart");
-                break;
-            case "3":
-                console.log("Remove item from cart");
-                break;
-            case "4":
-                console.log("Update quantity");
-                break;
-            case "5":
-                console.log("Checkout");
-                break;
-            default:
-                console.log("Invalid choice");
-                
-        }
-        }
-        while(choice!=="5");
-        cin.close();
-    };
-    main();
+main();
