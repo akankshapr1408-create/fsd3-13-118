@@ -2,4 +2,4 @@ local host -URL
 127.0.0.1-IP address
 ctrl+c-stop the server
 
-every request from the client has a pair of {request,response}
+every request from the client has a pair of {request,response}.
