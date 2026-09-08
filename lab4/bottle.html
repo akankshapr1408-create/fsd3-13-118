@@ -1,0 +1,538 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waterbody</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #eef8fa;
+            color: #12343b;
+        }
+
+        /* Navbar */
+        nav {
+            background: #063b4c;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav h1 {
+            font-size: 25px;
+        }
+
+        nav span {
+            color: #52d6c7;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #52d6c7;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 430px;
+            padding: 80px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #063b4c, #087f8c);
+            color: white;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero h2 {
+            font-size: 52px;
+            margin-bottom: 18px;
+        }
+
+        .hero h2 span {
+            color: #52d6c7;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #d8f5f4;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 13px 25px;
+            background: #52d6c7;
+            color: #063b4c;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        /* Water illustration */
+        .water-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: #52d6c7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            box-shadow: 0 0 50px rgba(82, 214, 199, 0.35);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            padding: 60px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #063b4c;
+        }
+
+        .section-title p {
+            margin-top: 8px;
+            color: #607d83;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #527077;
+            font-size: 15px;
+        }
+
+        .value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 8px 0;
+            color: #063b4c;
+        }
+
+        .good {
+            color: #159b72;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #d88900;
+            font-weight: bold;
+        }
+
+        /* Main monitoring section */
+        .monitor {
+            padding: 20px 7% 70px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 25px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        }
+
+        .panel h2 {
+            margin-bottom: 20px;
+            color: #063b4c;
+        }
+
+        /* Chart */
+        .chart {
+            height: 230px;
+            display: flex;
+            align-items: end;
+            gap: 15px;
+            padding: 20px 10px;
+            border-bottom: 2px solid #b7d8dc;
+        }
+
+        .bar {
+            flex: 1;
+            background: #1599aa;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .bar:hover {
+            background: #52d6c7;
+        }
+
+        .bar span {
+            position: absolute;
+            bottom: -25px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #607d83;
+        }
+
+        /* Alerts */
+        .alert {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            background: #f1fafb;
+        }
+
+        .alert-icon {
+            font-size: 23px;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .alert small {
+            color: #6d858a;
+        }
+
+        /* Features */
+        .features {
+            background: #063b4c;
+            color: white;
+            padding: 65px 7%;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 32px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature {
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .feature div {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #c9e1e4;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #042c38;
+            color: #b7d8dc;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .monitor {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                text-align: center;
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 38px;
+            }
+
+            .cards,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .water-circle {
+                width: 200px;
+                height: 200px;
+                font-size: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <h1>💧 Smart<span>Waterbody</span></h1>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#monitor">Monitoring</a></li>
+            <li><a href="#features">Features</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+
+        <div class="hero-text">
+            <h2>Smart Monitoring for <span>Healthy Water</span></h2>
+
+            <p>
+                Monitor water quality, water level, temperature and
+                pollution in real time using smart sensors and
+                intelligent technology.
+            </p>
+
+            <a href="#dashboard" class="btn">View Dashboard</a>
+        </div>
+
+        <div class="water-circle">
+            💧
+        </div>
+
+    </section>
+
+    <!-- Dashboard -->
+    <section class="dashboard" id="dashboard">
+
+        <div class="section-title">
+            <h2>Waterbody Dashboard</h2>
+            <p>Live environmental monitoring status</p>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-icon">🌊</div>
+                <h3>Water Level</h3>
+                <div class="value">72%</div>
+                <p class="good">● Normal</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🧪</div>
+                <h3>Water Quality</h3>
+                <div class="value">86%</div>
+                <p class="good">● Excellent</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🌡️</div>
+                <h3>Temperature</h3>
+                <div class="value">26°C</div>
+                <p class="good">● Normal</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">♻️</div>
+                <h3>Pollution Level</h3>
+                <div class="value">18%</div>
+                <p class="warning">● Low Risk</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Monitoring -->
+    <section class="monitor" id="monitor">
+
+        <!-- Chart -->
+        <div class="panel">
+            <h2>📊 Water Level Monitoring</h2>
+
+            <div class="chart">
+                <div class="bar" style="height: 55%;"><span>Mon</span></div>
+                <div class="bar" style="height: 68%;"><span>Tue</span></div>
+                <div class="bar" style="height: 62%;"><span>Wed</span></div>
+                <div class="bar" style="height: 78%;"><span>Thu</span></div>
+                <div class="bar" style="height: 72%;"><span>Fri</span></div>
+                <div class="bar" style="height: 82%;"><span>Sat</span></div>
+                <div class="bar" style="height: 72%;"><span>Sun</span></div>
+            </div>
+        </div>
+
+        <!-- Alerts -->
+        <div class="panel">
+            <h2>🔔 Smart Alerts</h2>
+
+            <div class="alert">
+                <div class="alert-icon">✅</div>
+                <div>
+                    <strong>Water Quality Good</strong>
+                    <small>All major parameters are within safe limits.</small>
+                </div>
+            </div>
+
+            <div class="alert">
+                <div class="alert-icon">🌡️</div>
+                <div>
+                    <strong>Temperature Stable</strong>
+                    <small>Current temperature is 26°C.</small>
+                </div>
+            </div>
+
+            <div class="alert">
+                <div class="alert-icon">⚠️</div>
+                <div>
+                    <strong>Pollution Check</strong>
+                    <small>Minor pollution detected. Monitoring active.</small>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+
+        <h2>Smart Waterbody Features</h2>
+
+        <div class="feature-grid">
+
+            <div class="feature">
+                <div>📡</div>
+                <h3>IoT Sensors</h3>
+                <p>
+                    Smart sensors continuously collect water level,
+                    temperature and quality data.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div>🤖</div>
+                <h3>Smart Analysis</h3>
+                <p>
+                    Analyze collected data to identify pollution,
+                    abnormal changes and environmental risks.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div>🚨</div>
+                <h3>Early Alerts</h3>
+                <p>
+                    Receive alerts when water quality or water level
+                    crosses a predefined limit.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div>📈</div>
+                <h3>Data Dashboard</h3>
+                <p>
+                    View important waterbody information through an
+                    easy-to-understand dashboard.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div>🌱</div>
+                <h3>Eco Protection</h3>
+                <p>
+                    Support sustainable water management and protect
+                    aquatic ecosystems.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div>💡</div>
+                <h3>Smart Decisions</h3>
+                <p>
+                    Use real-time data to make faster and better
+                    water management decisions.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>💧 Smart Waterbody Monitoring System | Building a Cleaner Future</p>
+    </footer>
+
+</body>
+</html>
+```
