@@ -1,15 +1,24 @@
 import http from 'http';
+import {reviews, items} from './data.js';
 
-const server = http.createServer((req, res) => {  
-    if(req.url === '/api/products'){  
-        res.end(JSON.stringify({
+const server = http.createServer((req, res) => { 
+    const products = {
+        
             id: 1,
             name: 'Mobile', 
             price: 10000,
             rating: 4.5,
             review: 1000
 
-        }))
+        
+    } ;
+    
+    if(req.url === '/api/products'){  
+        //res.end(JSON.stringify(products));
+        res.end(JSON.stringify(items));
+    }
+    else if(req.url === '/api/reviews'){
+        res.end(JSON.stringify(reviews));
     }
     else{
         res.statusCode = 404;
