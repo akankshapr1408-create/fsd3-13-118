@@ -1,27 +1,20 @@
-import { createReadStream } from "fs";
-import http from "http";
+import http from 'http';
 
-const server = http.createServer((req, res) => {
-    if (req.url === "/") {
-        res.write(`
-            <a href="/flower">Flower</a>
-            <a href="/animal">Animal</a>
-                `);
-        res.end();
+const server = http.createServer((req, res) => {  
+    if(req.url === '/api/products'){  
+        res.end(JSON.stringify({
+            id: 1,
+            name: 'Mobile', 
+            price: 10000,
+            rating: 4.5,
+            review: 1000
+
+        }))
     }
-    else if (req.url === "/flower") {
-        res.setHeader("Content-Type", "text/html");
-       const stream = createReadStream('flower.html', { encoding: "utf-8" });
-       stream.pipe(res);
-    }
-    else if (req.url === "/animal") {
-        res.setHeader("Content-Type", "text/html");
-        const stream = createReadStream('animal.html', { encoding: "utf-8" });
-        stream.pipe(res);
-    }
-    else {
+    else{
         res.statusCode = 404;
         res.end();
     }
 });
-server.listen(3334, () => console.log("prg3 is running at 3334..."));
+
+server.listen(3000, () => console.log("prg4 is running ..."))

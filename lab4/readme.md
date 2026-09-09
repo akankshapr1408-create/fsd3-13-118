@@ -59,3 +59,32 @@ Note: -D flag will install this package as developer dependency
  2. res.setHeader
  3. res.statusCode
  
+ ## response as HTML content 
+ 1. res.end - end(any html contest/tag)
+ ## send html file to client
+ 2. html file
+  - read by createReadStream
+  - pipe with res object
+ 3. html content 
+   send any html  tags/content by using res.end('<any html tag>')
+
+## JSON
+- server returns data only not html contents because html contents will be written by content developer
+
+data is in JSON format
+### JSON format
+jason always stores data in key value pair enclosed by curly brackets array can be stored by square brackets 
+
+one pair of curly bracket will represent one object and its property will be separated by comma 
+
+## JSON
+```
+{
+  id:1,
+  name:'Mobile',
+  price:25000,
+  rating:4.5,
+  review:200
+}
+```
+
