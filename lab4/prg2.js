@@ -1,8 +1,17 @@
-import http from "http";
-
-const server = http.createServer((req, res) => {
-  res.write("<h1>hieee Akanksha Prajapati</h1>");
-  
-  res.end();
+import express from "express";
+import path from 'path'
+import { fileURLToPath } from "node:url";
+const app=express();
+const filename=fileURLToPath(import.meta.url);
+const dirname=path.dirname(filename)
+app.get("/",(req,res)=>{
+    res.sendFile(path.join(dirname,"htmlPages","index.html"));
 });
-server.listen(4444, () => console.log("Server is running at 4444..."));
+app.get("/about",(req,res)=>{
+    res.sendFile(path.join(dirname, "htmlPages", "about.html"));
+});
+app.use((req,res)=>{
+    res.status(404).send("Page not found");
+});
+//home page
+app.listen(3333,()=>console.log("prg2 is running at 3333"));

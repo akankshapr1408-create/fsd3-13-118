@@ -1,90 +1,55 @@
-local host -URL
-127.0.0.1-IP address
-ctrl+c-stop the server
-
-every request from the client has a pair of {request,response}.
-
-## npm- node package manager
-
-used to install, run, uninstall any program/project and package
-
-- npm install <packagename>
-- npm uninstall <packagename>
-
-to use npm,the project must be npm project,
-to create npm project we can use
-
-- npm init -y
-- it creates a package .jason file automatically
-  package.json holds all the information related to install package from npm
-- update package.json, set type = 'module'
-- it also creates a folder node_modules automatically
-- node_modules holds the package/library files
-- generally we ignore the node_modules by .gitignore
+# Express
+1. create project folder
+2. goto project and open terminal
+3. execute `npm init -y`
+(this creates package.json as well)
+4. install `npm i nodemon -D`
+5. install `npm i express`
+6. open package.json
+  a.change `type:'module'`
+  b.update script{
+    "start":"node prg1.js",
+    "dev":"modemon prg1.js"
+  }  
+7. create prg1.js in folder
+8. add folderName/node_modules in .gitignore
+9. res.send(): send function is used to revert back contents to the client it may be html,JSON,html file,plain text.
+we can also add status code with status function.It can be chained with send function.
+<<<<<<< HEAD
 
 
-# Nodemon
-- it restart the server automatically when file changes, to install
-> npm i nodemon -D
-
-Note: -D flag will install this package as developer dependency 
-
-- to execute any program  , update the package.json file then start the server as
-\
-<b>npm run dev</b>
-
-- start -> it will execute the app on deployment
-- dev ->it will start server in development phase (only for developer)
-- res : it will return contents(json/html/plain) to the user/client 
-- req: it will retrive the information from client to the server 
-- server  send also status codes to the client , that indicates the error/success message
-## Status codes
-- 200->ok
-- 201->created
-- 400->bad request
-- 401->unauthorized
-- 402->forbidden 
-- 404->not found
-- 500->internal server error
-
-## content type 
-- text/plain
-- text/html
-- application/json
-- text/css
- 
- the content type and status code can be send back to client by two ways
-
- 1. res.writeHead
- 2. res.setHeader
- 3. res.statusCode
- 
- ## response as HTML content 
- 1. res.end - end(any html contest/tag)
- ## send html file to client
- 2. html file
-  - read by createReadStream
-  - pipe with res object
- 3. html content 
-   send any html  tags/content by using res.end('<any html tag>')
-
-## JSON
-- server returns data only not html contents because html contents will be written by content developer
-
-data is in JSON format
-### JSON format
-jason always stores data in key value pair enclosed by curly brackets array can be stored by square brackets 
-
-one pair of curly bracket will represent one object and its property will be separated by comma 
-
-## JSON
+## Map
+- this function is used to iterate any array it must return new array.
 ```
-{
-  id:1,
-  name:'Mobile',
-  price:25000,
-  rating:4.5,
-  review:200
-}
-```
+array.map((item)=>{
+  return
+})
 
+array.map((item)=>())
+```
+- in first syntax we have to use explicit return keyword whereas in syntax 2 does not required 
+- exclude no. of property from any JSON object.
+```
+const{p1,p2,...rest}=product;
+log(rest);
+```
+## search 
+- to search any item in JSON array, we use find method , it will return NULL on unsuccessfull or object on successfull
+```
+array.find((item)=>item.id===id);
+=======
+### MAP: this function is used to iterate any array. It must return new array.
+  ```
+  array.map((item)=>{return})
+  array.map((item)=>())
+  ```
+  - in first syntax we have to use explicit return keyword whereas second syntax , it isn't required.
+  #### exclude number of property from any json object
+  ```
+  const {p1,p2,...rest}=product; 
+  ```
+  #### to search any item in json array, we use find method.It will return NULL on unsuccessfull or object on successfull
+  ```
+  array.find((item)=>item.id===id);
+  ```
+>>>>>>> 9bfaad7227517974a50b0a154a83a5c79aa35459

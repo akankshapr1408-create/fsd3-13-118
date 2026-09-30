@@ -1,25 +1,20 @@
 {
-  "name": "sem3fsd",
+  "name": "lab4",
   "version": "1.0.0",
   "description": "",
-  "main": "file5.js",
+  "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev":"nodemon prg5.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akankshapr1408-create/sem3fsd.git"
+    "dev": "nodemon prg4.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/akankshapr1408-create/sem3fsd/issues"
-  },
-  "homepage": "https://github.com/akankshapr1408-create/sem3fsd#readme",
   "devDependencies": {
     "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }

@@ -1,29 +1,77 @@
-import http from 'http';
-import {reviews, items} from './data.js';
-
-const server = http.createServer((req, res) => { 
-    const products = {
-        
-            id: 1,
-            name: 'Mobile', 
-            price: 10000,
-            rating: 4.5,
-            review: 1000
-
-        
-    } ;
-    
-    if(req.url === '/api/products'){  
-        //res.end(JSON.stringify(products));
-        res.end(JSON.stringify(items));
-    }
-    else if(req.url === '/api/reviews'){
-        res.end(JSON.stringify(reviews));
-    }
-    else{
-        res.statusCode = 404;
-        res.end();
-    }
+import { products } from "./data.js";
+import express from "express";
+const app=express();
+app.get("/", (req, res) => {
+  res.send(`<h1>Home Page</h1>
+    <a href="/api/products">
+    Browse Products
+    </a>`);
+});
+app.get("/api/products",(req,res)=>{
+    // res.status(200).json({count:products.length,data:products});
+    const modifiedProducts=products.map(({reviews,description,...rest})=>rest,);
+    res
+      .status(200)
+      .json({ count: modifiedProducts.length, data: modifiedProducts });
 });
 
-server.listen(3000, () => console.log("prg4 is running ..."))
+
+app.get("/api/products/:id",(req,res)=>{
+    const {id}=req.params;
+    const product=products.find((item)=>item.id===Number(id));//iterative approach
+    if(product){
+        res.status(200).json({status:true,data:product})
+    }
+    else{
+        res.status(404).json({status:false,msg:`product not found with id: ${id}`});
+    }
+
+    
+});
+app.use((req,res)=>{
+    res.status(404).send("route not found");
+});
+app.listen(3333,()=>console.log("prg4 is running..."));import { products } from './data.js';
+import express from 'express'
+
+const app =express();
+
+
+
+
+app.get('/',(req,res) => {
+    res.send(`
+        <h1>home page</h1>
+        <a href='/api/products'>browser products</a>
+    `);
+});
+
+app.get("/api/products",(req,res)=>{
+    const items=products.map(
+        ({reviews,description, ...rest})=> rest ,
+    );
+    res.status(200).json({count:items.length , data:items});
+});
+
+app.get("/api/products/:id",(req,res)=>{
+    const {id}=req.params;
+    const p =products.find((item)=>item.id===Number(id));
+        if(p){
+            res.status(200).json({status:true,data:p});
+
+        }
+        else{
+            res.status(404).json({status:false, msg:`product not found with id: ${id}`});
+        }
+
+    // res.send(`will show products id: ${id}`);
+});
+
+app.use((req,res) =>{
+    res.status(404).send("route not found");
+});
+
+
+
+
+app.listen(3333 , () => console.log("prg4 is running..."));

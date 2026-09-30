@@ -1,27 +1,17 @@
-import { createReadStream } from "fs";
-import http from "http";
+import express from "express";
 
-const server = http.createServer((req, res) => {
-    if (req.url === "/") {
-        res.write(`
-            <a href="/bottle">Bottle</a>
-            <a href="/pot">Pot</a>
-                `);
-        res.end();
-    }
-    else if (req.url === "/bottle") {
-        res.setHeader("Content-Type", "text/html");
-       const stream = createReadStream('bottle.html', { encoding: "utf-8" });
-       stream.pipe(res);
-    }
-    else if (req.url === "/pot") {
-        res.setHeader("Content-Type", "text/html");
-        const stream = createReadStream('pot.html', { encoding: "utf-8" });
-        stream.pipe(res);
-    }
-    else {
-        res.statusCode = 404;
-        res.end();
-    }
+import path from "path";
+import { fileURLToPath } from "node:url";
+
+const app=express();
+const filename=fileURLToPath(import.meta.url);
+const dirname=path.dirname(filename);
+app.use(express.static(path.join(dirname,"public")));
+app.use((req,res)=>{
+    res.status(404).send("page not found");
 });
-server.listen(5000, () => console.log("prg3 is running at 5000..."));
+
+
+
+//always listen at last
+app.listen(3333,()=>console.log("prg1 is running at 3333"));
