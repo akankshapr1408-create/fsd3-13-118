@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-export const peope = [
-=======
 export const people = [
->>>>>>> 9bfaad7227517974a50b0a154a83a5c79aa35459
   {
     id: 1,
     profile: "https://picsum.photos/300",
@@ -375,8 +371,4 @@ export const products = [
       },
     ],
   },
-<<<<<<< HEAD
 ];
-=======
-];
->>>>>>> 9bfaad7227517974a50b0a154a83a5c79aa35459
