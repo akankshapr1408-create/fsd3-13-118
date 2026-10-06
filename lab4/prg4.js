@@ -55,6 +55,27 @@ app.get("/api/products/:id",(req,res)=>{
     
 });
 
+app.get("/api/products/:id/reviews/:revid",(req,res)=>{
+    res.send("Product Review Page");
+
+});
+
+app.get("/api/products/:id/reviews/:revid",(req,res)=>{
+    const{id,revid}=req.params;
+    const product=products.find((item)=>item.id===Number(id));
+    if(!product){
+        res.send(`product not found with id: ${id}`);
+        return;
+    }
+    review=product.reviews.map((item)=>item.id===Number(revid));
+    if(!review){
+        res.send(`review not found with id:${revid}for product id ${id}`);
+        return;
+    }
+    return res.status(200).send(review);
+
+});
+
 app.use((req,res)=>{
     res.status(404).send("route not found");
 });
